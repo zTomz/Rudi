@@ -1,3 +1,4 @@
-let x = 45 * (4 / 3);
-let y = 10;
-let z = 15;
+let x = 45;
+let y = 5;
+
+final z = x + y;

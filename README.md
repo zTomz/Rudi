@@ -14,11 +14,9 @@ Comming soon.
 
 ## Syntax
 
-```javascript
-let x = 45 * (4 / 3);
-x = 10;
-let y = 10;
-y = true;
-y = null;
-let z = 15;
+```rust
+let x = 45;
+let y = 5;
+
+final z = x + y;
 ```
