@@ -3,6 +3,7 @@ enum TokenType {
   identifier,
   equals,
   let,
+  constant, // Can't use const
   binaryOperator,
   openParen,
   closeParen,

@@ -1,9 +1,4 @@
-enum NodeType {
-  program,
-  numaricLitaral,
-  identifier,
-  binaryExpression,
-}
+import 'package:rudi/src/frontend/node_type.dart';
 
 class Statement {
   final NodeType kind;
@@ -33,6 +28,25 @@ class Program extends Statement {
   }
 }
 
+class VariableDecleration extends Statement {
+  final bool isConst;
+  final String identifier;
+  final Expression? value;
+
+  VariableDecleration({
+    required this.isConst,
+    required this.identifier,
+    this.value,
+  }) : super(
+          kind: NodeType.variableDeclaration,
+        );
+
+  @override
+  String toString() {
+    return 'VariableDecleration{isConst: $isConst, identifier: $identifier, value: $value, kind: $kind}';
+  }
+}
+
 class Expression extends Statement {
   Expression({
     required super.kind,
@@ -47,12 +61,16 @@ class Expression extends Statement {
 enum BinaryOperator {
   /// Addition [+]
   add,
+
   /// Subtraction [-]
   subtract,
+
   /// Multiplication [*]
   multiply,
+
   /// Division [/]
   divide,
+
   /// Modulo [%]
   modulo,
 }

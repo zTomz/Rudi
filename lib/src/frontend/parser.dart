@@ -36,8 +36,50 @@ class Parser {
   }
 
   Statement _parseStatement() {
-    // skip to parse_expr
-    return _parseExpression();
+    switch (tokens[0].type) {
+      case TokenType.let:
+        return _parseVariableDeclaration();
+      case TokenType.constant:
+        return _parseVariableDeclaration();
+      default:
+        return _parseExpression();
+    }
+  }
+
+  Statement _parseVariableDeclaration() {
+    final isConst = tokens.removeAt(0).type == TokenType.constant;
+    final identifier = _expect(
+      TokenType.identifier,
+      "Expected identifier name after let or const keyword.",
+    ).value;
+
+    if (tokens[0].type == TokenType.semiColon) {
+      tokens.removeAt(0);
+
+      if (isConst) {
+        throw "Must assign a value to const expressions. No value provided.";
+      }
+
+      return VariableDecleration(
+        isConst: false,
+        identifier: identifier,
+      );
+    }
+
+    _expect(TokenType.equals, "Expected '=' identifier after variable name.");
+
+    final decleration = VariableDecleration(
+      isConst: isConst,
+      identifier: identifier,
+      value: _parseExpression(),
+    );
+
+    _expect(
+      TokenType.semiColon,
+      "Expected ';' after variable declaration.",
+    );
+
+    return decleration;
   }
 
   Expression _parseExpression() {
