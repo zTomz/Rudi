@@ -105,6 +105,6 @@ class NullLiteral extends Expression {
 
   @override
   String toString() {
-    return 'NumericLiteral{value: $value}';
+    return 'NullLiteral{value: $value}';
   }
 }

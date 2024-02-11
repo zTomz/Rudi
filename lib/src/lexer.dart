@@ -90,11 +90,11 @@ List<Token> tokenize(String sourceCode) {
         }
 
         final reserved = keywords[identifier];
-        if (reserved == TokenType.number) {
+        if (reserved != null) {
           tokens.add(
             Token(
               value: identifier,
-              type: reserved!,
+              type: reserved,
             ),
           );
         } else {

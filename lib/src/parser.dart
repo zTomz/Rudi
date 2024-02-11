@@ -10,8 +10,6 @@ class Parser {
   Program produceAST(String sourceCode) {
     tokens = tokenize(sourceCode);
 
-    print("Tokens: $tokens");
-
     Program program = Program(
       body: [],
     );
@@ -62,7 +60,9 @@ class Parser {
           value: "null",
         );
       case TokenType.number:
-        return NumericLiteral(number: double.parse(tokens.removeAt(0).value));
+        return NumericLiteral(
+          number: double.parse(tokens.removeAt(0).value),
+        );
       case TokenType.openParen:
         tokens.removeAt(0); // Remove opening paren
         final value = _parseExpression();
