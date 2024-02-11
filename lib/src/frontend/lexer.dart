@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:rudi/src/exeptions.dart';
 import 'package:rudi/src/frontend/keywords.dart';
 import 'package:rudi/src/frontend/token_type.dart';
 
@@ -25,8 +26,6 @@ List<Token> tokenize(String sourceCode) {
 
   // Build each token until end of the file
   while (src.isNotEmpty) {
-    // print(src[0]);
-
     if (src[0] == '(') {
       tokens.add(
         Token(
@@ -109,10 +108,7 @@ List<Token> tokenize(String sourceCode) {
         // Skip the current character
         src.removeAt(0);
       } else {
-        print(
-          'Unknown character: ${src[0]} ${src[0].codeUnits}',
-        );
-        exit(1);
+        throw UnknownCharacterException(src[0]);
       }
     }
   }

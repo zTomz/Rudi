@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:rudi/rudi.dart';
+import 'package:rudi/src/exeptions.dart';
 import 'package:rudi/src/frontend/ast.dart';
 import 'package:rudi/src/frontend/token_type.dart';
 
@@ -30,8 +31,7 @@ class Parser {
   Token _expect(TokenType type, dynamic error) {
     final prev = tokens.removeAt(0);
     if (prev.type != type) {
-      print("Parser Error: $error");
-      exit(1);
+      throw ParserException(error.toString());
     }
 
     return prev;
@@ -72,8 +72,7 @@ class Parser {
         ); // Closing paren
         return value;
       default:
-        print("Unexpected token found during parsing: $token");
-        exit(1);
+        throw UnexpectedTokenException(token.toString());
     }
   }
 
@@ -108,7 +107,7 @@ class Parser {
           : operator == "/"
               ? BinaryOperator.divide
               : BinaryOperator.modulo;
-              
+
       final right = _parsePrimaryExpression();
 
       left = BinaryExpression(

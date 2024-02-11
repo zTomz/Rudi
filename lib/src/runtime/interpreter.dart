@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:rudi/src/exeptions.dart';
 import 'package:rudi/src/frontend/ast.dart';
 import 'package:rudi/src/runtime/values.dart';
 
@@ -16,8 +17,9 @@ RuntimeValue evaluate(Statement astNode) {
     case NodeType.program:
       return evaluateProgram(astNode as Program);
     default:
-      print("Error: $astNode has not yet been setup for interpretation.");
-      exit(1);
+      throw UnimplementedError(
+        "$astNode has not yet been setup for interpretation.",
+      );
   }
 }
 
@@ -67,8 +69,7 @@ NumberValue evaluateNumericBinaryExpression(
     case BinaryOperator.divide:
       // Prevent division by zero
       if (right.value == 0) {
-        print("Runtime Exception: Attempted to divide by zero.");
-        exit(1);
+        throw DivisionByZeroException();
       }
 
       result = left.value / right.value;
