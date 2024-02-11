@@ -83,7 +83,23 @@ class Parser {
   }
 
   Expression _parseExpression() {
-    return _parseAdditiveExpression();
+    return _parseAssignmentExpression();
+  }
+
+  Expression _parseAssignmentExpression() {
+    final left = _parseAdditiveExpression(); // Switch this out with objectExpr
+
+    if (tokens[0].type == TokenType.equals) {
+      tokens.removeAt(0); // advance past the equal
+      final value = _parseAssignmentExpression(); // Allow chaining
+
+      return AssignmentExpression(
+        assigne: left,
+        value: value,
+      );
+    }
+
+    return left;
   }
 
   Expression _parsePrimaryExpression() {

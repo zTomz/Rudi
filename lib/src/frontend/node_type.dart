@@ -3,6 +3,7 @@ enum NodeType {
   program,
   variableDeclaration,
   // Expressions
+  assignmentExpression,
   numaricLitaral,
   identifier,
   binaryExpression,

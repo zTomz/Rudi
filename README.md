@@ -16,6 +16,9 @@ Comming soon.
 
 ```javascript
 let x = 45 * (4 / 3);
+x = 10;
 let y = 10;
+y = true;
+y = null;
 let z = 15;
 ```

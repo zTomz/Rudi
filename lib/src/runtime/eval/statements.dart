@@ -18,6 +18,7 @@ RuntimeValue evaluateIdentifier(
   Environment environment,
 ) {
   final value = environment.lookupVariable(identifier.symbol);
+
   return value;
 }
 

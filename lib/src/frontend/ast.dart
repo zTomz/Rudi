@@ -123,3 +123,15 @@ class NumericLiteral extends Expression {
     return 'NumericLiteral{number: $number}';
   }
 }
+
+class AssignmentExpression extends Expression {
+  final Expression assigne;
+  final Expression value;
+
+  AssignmentExpression({
+    required this.assigne,
+    required this.value,
+  }) : super(
+          kind: NodeType.assignmentExpression,
+        );
+}

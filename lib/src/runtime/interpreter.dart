@@ -16,6 +16,11 @@ RuntimeValue evaluate(Statement astNode, Environment environment) {
         astNode as Identifier,
         environment,
       );
+    case NodeType.assignmentExpression:
+      return evaluateAssignmentExpression(
+        astNode as AssignmentExpression,
+        environment,
+      );
     case NodeType.binaryExpression:
       return evaluateBinaryExpression(
         astNode as BinaryExpression,

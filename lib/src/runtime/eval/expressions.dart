@@ -1,11 +1,14 @@
 import 'package:rudi/src/exeptions.dart';
 import 'package:rudi/src/frontend/ast.dart';
+import 'package:rudi/src/frontend/node_type.dart';
 import 'package:rudi/src/runtime/environment.dart';
 import 'package:rudi/src/runtime/interpreter.dart';
 import 'package:rudi/src/runtime/values.dart';
 
 RuntimeValue evaluateBinaryExpression(
-    BinaryExpression binaryExpression, Environment environment) {
+  BinaryExpression binaryExpression,
+  Environment environment,
+) {
   final left = evaluate(binaryExpression.left, environment);
   final right = evaluate(binaryExpression.right, environment);
 
@@ -53,5 +56,21 @@ NumberValue _evaluateNumericBinaryExpression(
 
   return NumberValue(
     value: result,
+  );
+}
+
+RuntimeValue evaluateAssignmentExpression(
+  AssignmentExpression assignmentExpression,
+  Environment environment,
+) {
+  if (assignmentExpression.assigne.kind != NodeType.identifier) {
+    throw "Invalid assignment target [${assignmentExpression.assigne.kind}].";
+  }
+
+  final varName = (assignmentExpression.assigne as Identifier).symbol;
+
+  return environment.assignVariable(
+    varName,
+    evaluate(assignmentExpression.value, environment),
   );
 }
