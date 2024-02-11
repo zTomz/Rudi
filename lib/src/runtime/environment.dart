@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:rudi/src/exeptions.dart';
 import 'package:rudi/src/runtime/values.dart';
 
@@ -5,11 +7,17 @@ class Environment {
   Environment? parent;
   Map<String, RuntimeValue> variables;
   Set<String> constants;
+  bool global;
 
   Environment({
     this.parent,
   })  : variables = {},
-        constants = {};
+        constants = {},
+        global = parent == null ? true : false {
+    if (global) {
+      setuptScope(this);
+    }
+  }
 
   RuntimeValue declareVariable(
       String variableName, RuntimeValue value, bool isConst) {
@@ -28,7 +36,7 @@ class Environment {
 
   RuntimeValue assignVariable(String variableName, RuntimeValue value) {
     final env = resolve(variableName);
-    
+
     // Cannot assign to a constant
     if (env.constants.contains(variableName)) {
       throw "Cannot reassign a constant. Trying to reassign constant [$variableName].";
@@ -54,4 +62,12 @@ class Environment {
 
     return parent!.resolve(variableName);
   }
+}
+
+/// Setup the default scope
+void setuptScope(Environment environment) {
+  environment.declareVariable("true", BooleanValue(value: true), true);
+  environment.declareVariable("false", BooleanValue(value: false), true);
+  environment.declareVariable("null", NullValue(), true);
+  environment.declareVariable("pi", NumberValue(value: pi), true);
 }

@@ -38,6 +38,20 @@ List<Token> tokenize(String sourceCode) {
           type: TokenType.closeParen,
         ),
       );
+    } else if (src[0] == '{') {
+      tokens.add(
+        Token(
+          value: src.removeAt(0),
+          type: TokenType.openBrace,
+        ),
+      );
+    } else if (src[0] == '}') {
+      tokens.add(
+        Token(
+          value: src.removeAt(0),
+          type: TokenType.closeBrace,
+        ),
+      );
     } else if (src[0] == '+' ||
         src[0] == '-' ||
         src[0] == '*' ||
@@ -61,6 +75,20 @@ List<Token> tokenize(String sourceCode) {
         Token(
           value: src.removeAt(0),
           type: TokenType.semiColon,
+        ),
+      );
+    } else if (src[0] == ":") {
+      tokens.add(
+        Token(
+          value: src.removeAt(0),
+          type: TokenType.colon,
+        ),
+      );
+    } else if (src[0] == ",") {
+      tokens.add(
+        Token(
+          value: src.removeAt(0),
+          type: TokenType.comma,
         ),
       );
     } else {

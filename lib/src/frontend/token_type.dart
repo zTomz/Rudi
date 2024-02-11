@@ -1,12 +1,20 @@
 enum TokenType {
+  // Literal Types
   number,
   identifier,
-  equals,
+  // Keywords
   let,
   finalType,
+  // Grouping * Operators
   binaryOperator,
-  openParen,
-  closeParen,
-  semiColon,
-  eof, // Signified the end of a file
+  equals,
+  comma,
+  openBrace, // {
+  closeBrace, // }
+  openParen, // (
+  closeParen, // )
+  semiColon, // ;
+  colon, // :
+  // Signified the end of a file
+  eof,
 }
