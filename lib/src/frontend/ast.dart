@@ -3,7 +3,7 @@ enum NodeType {
   numaricLitaral,
   nullLiteral,
   identifier,
-  binaryExpr,
+  binaryExpression,
 }
 
 class Statement {
@@ -45,17 +45,30 @@ class Expression extends Statement {
   }
 }
 
+enum BinaryOperator {
+  /// Addition [+]
+  add,
+  /// Subtraction [-]
+  subtract,
+  /// Multiplication [*]
+  multiply,
+  /// Division [/]
+  divide,
+  /// Modulo [%]
+  modulo,
+}
+
 class BinaryExpression extends Expression {
   final Expression left;
   final Expression right;
-  final String operator;
+  final BinaryOperator operator;
 
   BinaryExpression({
     required this.left,
     required this.right,
     required this.operator,
   }) : super(
-          kind: NodeType.binaryExpr,
+          kind: NodeType.binaryExpression,
         );
 
   @override

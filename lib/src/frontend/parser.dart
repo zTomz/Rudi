@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:rudi/rudi.dart';
-import 'package:rudi/src/ast.dart';
-import 'package:rudi/src/token_type.dart';
+import 'package:rudi/src/frontend/ast.dart';
+import 'package:rudi/src/frontend/token_type.dart';
 
 class Parser {
   List<Token> tokens = [];
@@ -82,12 +82,14 @@ class Parser {
 
     while (tokens[0].value == "+" || tokens[0].value == "-") {
       final operator = tokens.removeAt(0).value;
+      BinaryOperator binaryOperator =
+          operator == "+" ? BinaryOperator.add : BinaryOperator.subtract;
       final right = _parseMultiplicativeExpression();
 
       left = BinaryExpression(
         left: left,
         right: right,
-        operator: operator,
+        operator: binaryOperator,
       );
     }
 
@@ -101,12 +103,18 @@ class Parser {
         tokens[0].value == "/" ||
         tokens[0].value == "%") {
       final operator = tokens.removeAt(0).value;
+      BinaryOperator binaryOperator = operator == "*"
+          ? BinaryOperator.multiply
+          : operator == "/"
+              ? BinaryOperator.divide
+              : BinaryOperator.modulo;
+              
       final right = _parsePrimaryExpression();
 
       left = BinaryExpression(
         left: left,
         right: right,
-        operator: operator,
+        operator: binaryOperator,
       );
     }
 

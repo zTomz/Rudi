@@ -14,6 +14,9 @@ void main() async {
     }
 
     final program = parser.produceAST(input);
-    print(program);
+    print("Program: $program");
+
+    final result = evaluate(program);
+    print("Result: $result");
   }
 }
