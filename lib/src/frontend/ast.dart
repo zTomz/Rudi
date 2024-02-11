@@ -1,7 +1,6 @@
 enum NodeType {
   program,
   numaricLitaral,
-  nullLiteral,
   identifier,
   binaryExpression,
 }
@@ -104,20 +103,5 @@ class NumericLiteral extends Expression {
   @override
   String toString() {
     return 'NumericLiteral{number: $number}';
-  }
-}
-
-class NullLiteral extends Expression {
-  final String value;
-
-  NullLiteral({
-    required this.value,
-  }) : super(
-          kind: NodeType.nullLiteral,
-        );
-
-  @override
-  String toString() {
-    return 'NullLiteral{value: $value}';
   }
 }

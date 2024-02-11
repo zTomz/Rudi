@@ -1,6 +1,6 @@
 class VariableAlreadyExistsException implements Exception {
   String variableName;
-  
+
   VariableAlreadyExistsException(
     this.variableName,
   );
@@ -8,6 +8,19 @@ class VariableAlreadyExistsException implements Exception {
   @override
   String toString() {
     return 'A variable with the name [$variableName] already exists.';
+  }
+}
+
+class VariableDoesNotExistException implements Exception {
+  String variableName;
+
+  VariableDoesNotExistException(
+    this.variableName,
+  );
+
+  @override
+  String toString() {
+    return 'A variable with the name [$variableName] does not exist.';
   }
 }
 

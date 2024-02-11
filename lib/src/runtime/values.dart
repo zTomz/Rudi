@@ -1,6 +1,7 @@
 enum ValueType {
   nullType,
   number,
+  boolean,
 }
 
 class RuntimeValue {
@@ -12,17 +13,33 @@ class RuntimeValue {
 }
 
 class NullValue extends RuntimeValue {
-  final String value;
+  // ignore: prefer_void_to_null
+  final Null value;
 
   NullValue({
-    this.value = "null",
+    this.value,
   }) : super(
           type: ValueType.nullType,
         );
 
   @override
   String toString() {
-    return 'NullValue{value: $value}';
+    return 'NullValue{value: $value, type: $type}';
+  }
+}
+
+class BooleanValue extends RuntimeValue {
+  final bool value;
+
+  BooleanValue({
+    required this.value,
+  }) : super(
+          type: ValueType.boolean,
+        );
+
+  @override
+  String toString() {
+    return 'BooleanValue{value: $value, type: $type}';
   }
 }
 
@@ -37,6 +54,6 @@ class NumberValue extends RuntimeValue {
 
   @override
   String toString() {
-    return 'NumberValue{value: $value}';
+    return 'NumberValue{value: $value, type: $type}';
   }
 }

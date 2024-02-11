@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:rudi/rudi.dart';
 import 'package:rudi/src/exeptions.dart';
 import 'package:rudi/src/frontend/ast.dart';
@@ -53,11 +51,6 @@ class Parser {
       case TokenType.identifier:
         return Identifier(
           symbol: tokens.removeAt(0).value,
-        );
-      case TokenType.nullType:
-        tokens.removeAt(0);
-        return NullLiteral(
-          value: "null",
         );
       case TokenType.number:
         return NumericLiteral(
