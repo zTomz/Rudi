@@ -2,6 +2,7 @@ enum ValueType {
   nullType,
   number,
   boolean,
+  map,
 }
 
 class RuntimeValue {
@@ -55,5 +56,20 @@ class NumberValue extends RuntimeValue {
   @override
   String toString() {
     return 'NumberValue{value: $value, type: $type}';
+  }
+}
+
+class MapValue extends RuntimeValue {
+  final Map<String, RuntimeValue> properties;
+
+  MapValue({
+    required this.properties,
+  }) : super(
+          type: ValueType.map,
+        );
+
+  @override
+  String toString() {
+    return 'MapValue{properties: $properties, type: $type}';
   }
 }

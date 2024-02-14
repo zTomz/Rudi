@@ -59,6 +59,15 @@ NumberValue _evaluateNumericBinaryExpression(
   );
 }
 
+RuntimeValue evaluateIdentifier(
+  Identifier identifier,
+  Environment environment,
+) {
+  final value = environment.lookupVariable(identifier.symbol);
+
+  return value;
+}
+
 RuntimeValue evaluateAssignmentExpression(
   AssignmentExpression assignmentExpression,
   Environment environment,
@@ -73,4 +82,21 @@ RuntimeValue evaluateAssignmentExpression(
     varName,
     evaluate(assignmentExpression.value, environment),
   );
+}
+
+RuntimeValue evaluateMapLiteral(
+  MapLiteral mapLiteral,
+  Environment environment,
+) {
+  final map = MapValue(properties: {});
+
+  for (final property in mapLiteral.properties) {
+    final runtimeValue = property.value == null
+        ? environment.lookupVariable(property.key)
+        : evaluate(property.value!, environment);
+
+    map.properties[property.key] = runtimeValue;
+  }
+
+  return map;
 }

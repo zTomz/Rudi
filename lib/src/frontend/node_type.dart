@@ -4,7 +4,10 @@ enum NodeType {
   variableDeclaration,
   // Expressions
   assignmentExpression,
-  numaricLitaral,
-  identifier,
   binaryExpression,
+  // Literal
+  property,
+  mapLiteral,
+  numericLitaral,
+  identifier,
 }

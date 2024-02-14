@@ -48,6 +48,7 @@ class Environment {
 
   RuntimeValue lookupVariable(String variableName) {
     final env = resolve(variableName);
+
     return env.variables[variableName]!;
   }
 

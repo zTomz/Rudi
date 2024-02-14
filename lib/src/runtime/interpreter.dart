@@ -7,13 +7,18 @@ import 'package:rudi/src/runtime/values.dart';
 
 RuntimeValue evaluate(Statement astNode, Environment environment) {
   switch (astNode.kind) {
-    case NodeType.numaricLitaral:
+    case NodeType.numericLitaral:
       return NumberValue(
         value: (astNode as NumericLiteral).number,
       );
     case NodeType.identifier:
       return evaluateIdentifier(
         astNode as Identifier,
+        environment,
+      );
+    case NodeType.mapLiteral:
+      return evaluateMapLiteral(
+        astNode as MapLiteral,
         environment,
       );
     case NodeType.assignmentExpression:

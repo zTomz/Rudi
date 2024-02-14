@@ -87,11 +87,16 @@ class Parser {
   }
 
   Expression _parseAssignmentExpression() {
-    final left = _parseAdditiveExpression(); // Switch this out with objectExpr
+    final left = _parsemapExpression();
 
     if (tokens[0].type == TokenType.equals) {
       tokens.removeAt(0); // advance past the equal
       final value = _parseAssignmentExpression(); // Allow chaining
+
+      _expect(
+        TokenType.semiColon,
+        "Expected ';' after assignment.",
+      );
 
       return AssignmentExpression(
         assigne: left,
@@ -100,6 +105,64 @@ class Parser {
     }
 
     return left;
+  }
+
+  Expression _parsemapExpression() {
+    if (tokens[0].type != TokenType.openBrace) {
+      return _parseAdditiveExpression();
+    }
+
+    tokens.removeAt(0); // Go past open brace
+    List<Property> properties = [];
+
+    while (_notEof() && tokens[0].type != TokenType.closeBrace) {
+      final key = _expect(
+        TokenType.identifier,
+        "map literal key expected.",
+      ).value;
+
+      // Allows shorthand key: pair -> { key, }
+      if (tokens[0].type == TokenType.comma) {
+        tokens.removeAt(0); // Go advance the comma
+
+        properties.add(
+          Property(key: key, value: null),
+        );
+        continue;
+      } else if (tokens[0].type == TokenType.closeBrace) {
+        // Allows shorthand key: pair -> { key }
+        properties.add(
+          Property(key: key, value: null),
+        );
+        continue;
+      }
+
+      _expect(
+        TokenType.colon,
+        "Missing colon [\" : \"] following identifier in mapExpr.",
+      );
+
+      final value = _parseExpression();
+
+      properties.add(
+        Property(key: key, value: value),
+      );
+      if (tokens[0].type != TokenType.closeBrace) {
+        _expect(
+          TokenType.comma,
+          "Expected comma or closing brace following property.",
+        );
+      }
+    }
+
+    _expect(
+      TokenType.closeBrace,
+      "map literal missing closing brace.",
+    );
+
+    return MapLiteral(
+      properties: properties,
+    );
   }
 
   Expression _parsePrimaryExpression() {
@@ -119,7 +182,7 @@ class Parser {
         final value = _parseExpression();
         _expect(
           TokenType.closeParen,
-          "Missing closing paren",
+          "Missing closing paren.",
         ); // Closing paren
         return value;
       default:

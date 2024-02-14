@@ -13,15 +13,6 @@ RuntimeValue evaluateProgram(Program program, Environment environment) {
   return lastEvaluated;
 }
 
-RuntimeValue evaluateIdentifier(
-  Identifier identifier,
-  Environment environment,
-) {
-  final value = environment.lookupVariable(identifier.symbol);
-
-  return value;
-}
-
 RuntimeValue evaluateVariableDeclaration(
   VariableDecleration variableDecleration,
   Environment environment,

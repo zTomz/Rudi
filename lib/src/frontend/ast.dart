@@ -115,7 +115,7 @@ class NumericLiteral extends Expression {
   NumericLiteral({
     required this.number,
   }) : super(
-          kind: NodeType.numaricLitaral,
+          kind: NodeType.numericLitaral,
         );
 
   @override
@@ -134,4 +134,36 @@ class AssignmentExpression extends Expression {
   }) : super(
           kind: NodeType.assignmentExpression,
         );
+}
+
+class Property extends Expression {
+  final String key;
+  final Expression? value;
+
+  Property({
+    required this.key,
+    required this.value,
+  }) : super(
+          kind: NodeType.property,
+        );
+
+  @override
+  String toString() {
+    return 'Property{key: $key, value: $value, kind: $kind}';
+  }
+}
+
+class MapLiteral extends Expression {
+  final List<Property> properties;
+
+  MapLiteral({
+    required this.properties,
+  }) : super(
+          kind: NodeType.mapLiteral,
+        );
+
+  @override
+  String toString() {
+    return 'mapLiteral{properties: $properties, kind: $kind}';
+  }
 }
