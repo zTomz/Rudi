@@ -1,10 +1,12 @@
-final foo = 50 / 2;
+let x = 45;
+let y = 5;
 
-final map = {
-    x: 100,
-    y: 32,
-    foo,
+const z = x + y;
+
+const map = {
+    x,
+    y: 2,
     complex: {
-        bar: true,
+        value: 32,
     },
 };

@@ -14,9 +14,20 @@ Comming soon.
 
 ## Syntax
 
-```rust
+```js
+! Comments are not yet supported !
+
 let x = 45;
 let y = 5;
 
-final z = x + y;
+const z = x + y;
+
+const map = {
+    x, // Shorthand for { x: x }
+    y: 2,
+    complex: { // Support for nested maps
+        value: 32,
+    },
+};
+
 ```

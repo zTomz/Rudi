@@ -39,7 +39,7 @@ class Parser {
     switch (tokens[0].type) {
       case TokenType.let:
         return _parseVariableDeclaration();
-      case TokenType.finalType:
+      case TokenType.constType:
         return _parseVariableDeclaration();
       default:
         return _parseExpression();
@@ -47,7 +47,7 @@ class Parser {
   }
 
   Statement _parseVariableDeclaration() {
-    final isConst = tokens.removeAt(0).type == TokenType.finalType;
+    final isConst = tokens.removeAt(0).type == TokenType.constType;
     final identifier = _expect(
       TokenType.identifier,
       "Expected identifier name after let or const keyword.",

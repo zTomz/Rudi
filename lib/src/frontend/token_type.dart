@@ -4,7 +4,7 @@ enum TokenType {
   identifier,
   // Keywords
   let,
-  finalType,
+  constType,
   // Grouping * Operators
   binaryOperator,
   equals,
