@@ -326,10 +326,12 @@ class Parser {
       callExprssion = _parseCallExpression(callExprssion);
     }
 
-    _expect(
-      TokenType.semiColon,
-      "Expected semi colon after call.",
-    );
+    if (tokens[0].type != TokenType.closeParen && tokens[0].type != TokenType.comma) {
+      _expect(
+        TokenType.semiColon,
+        "Expected semi colon after call.",
+      );
+    }
 
     return callExprssion;
   }

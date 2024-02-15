@@ -40,6 +40,11 @@ RuntimeValue evaluate(Statement astNode, Environment environment) {
         astNode as BinaryExpression,
         environment,
       );
+    case NodeType.functionDeclaration:
+      return evaluateFunctionDeclaration(
+        astNode as FunctionDecleration,
+        environment,
+      );
     case NodeType.program:
       return evaluateProgram(
         astNode as Program,

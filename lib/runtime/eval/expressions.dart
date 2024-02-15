@@ -110,20 +110,46 @@ RuntimeValue evalCallExpression(
     environment,
   );
 
-  if (function.type != ValueType.nativeFunction) {
-    throw "Cannot call value, that is not a function. [$function].";
-  }
-
   final args = callExpression.arguments
       .map(
         (e) => evaluate(e, environment),
       )
       .toList();
 
-  final result = (function as NativeFunctionValue).call(
-    args,
-    environment,
-  );
+  if (function.type == ValueType.nativeFunction) {
+    final result = (function as NativeFunctionValue).call(
+      args,
+      environment,
+    );
 
-  return result;
+    return result;
+  } else if (function.type == ValueType.function) {
+    final func = function as FunctionValue;
+
+    final scope = Environment(
+      parent: func.declerationEnvironment,
+    );
+
+    // Create the variables for the parameters list
+    for (int i = 0; i < func.parameters.length; i++) {
+      if (i >= args.length) {
+        throw "Invalid number of arguments for function [${func.name}]. Expected ${func.parameters.length}, got ${args.length}.";
+      }
+
+      scope.declareVariable(
+        func.parameters[i],
+        args[i],
+        false,
+      );
+    }
+
+    RuntimeValue result = NullValue();
+    for (final statement in func.body) {
+      result = evaluate(statement, scope);
+    }
+
+    return result;
+  } else {
+    throw "Invalid call target [${function.type}].";
+  }
 }

@@ -27,3 +27,25 @@ RuntimeValue evaluateVariableDeclaration(
     variableDecleration.isConst,
   );
 }
+
+RuntimeValue evaluateFunctionDeclaration(
+  FunctionDecleration functionDecleration,
+  Environment environment,
+) {
+  final fn = FunctionValue(
+    name: functionDecleration.name,
+    parameters: functionDecleration.parameters,
+    body: functionDecleration.body,
+    declerationEnvironment: environment,
+  );
+
+  if (environment.exists(functionDecleration.name)) {
+    throw "Cannot redeclare function ${functionDecleration.name} in this scope as it already exists.";
+  }
+
+  return environment.declareVariable(
+    functionDecleration.name,
+    fn,
+    true,
+  );
+}

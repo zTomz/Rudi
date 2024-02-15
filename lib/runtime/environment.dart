@@ -64,6 +64,17 @@ class Environment {
 
     return parent!.resolve(variableName);
   }
+
+  bool exists(String variableName) {
+    Environment? current = this;
+    while (current != null) {
+      if (current.variables.containsKey(variableName)) {
+        return true;
+      }
+      current = current.parent;
+    }
+    return false;
+  }
 }
 
 /// Setup the default scope

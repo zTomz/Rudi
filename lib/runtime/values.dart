@@ -1,3 +1,4 @@
+import 'package:rudi/frontend/ast.dart';
 import 'package:rudi/runtime/environment.dart';
 
 enum ValueType {
@@ -7,6 +8,7 @@ enum ValueType {
   boolean,
   map,
   nativeFunction,
+  function,
 }
 
 class RuntimeValue {
@@ -110,5 +112,26 @@ class NativeFunctionValue extends RuntimeValue {
   @override
   String toString() {
     return 'NativeFunctionValue{call: $call, type: $type}';
+  }
+}
+
+class FunctionValue extends RuntimeValue {
+  final String name;
+  final List<String> parameters;
+  final Environment declerationEnvironment;
+  final List<Statement> body;
+
+  FunctionValue({
+    required this.name,
+    required this.parameters,
+    required this.body,
+    required this.declerationEnvironment,
+  }) : super(
+          type: ValueType.function,
+        );
+
+  @override
+  String toString() {
+    return 'FunctionValue{name: $name, parameters: $parameters, body: $body, declerationEnvironment: $declerationEnvironment, type: $type}';
   }
 }

@@ -1,6 +1,8 @@
 fn add(x, y) {
     let result = x + y;
-    println(result);
 
     result
 }
+
+
+println(add(1, 2));
