@@ -1,21 +1,6 @@
 import 'package:rudi/exeptions.dart';
 import 'package:rudi/frontend/keywords.dart';
-import 'package:rudi/frontend/token_type.dart';
-
-class Token {
-  final String value;
-  final TokenType type;
-
-  Token({
-    required this.value,
-    required this.type,
-  });
-
-  @override
-  String toString() {
-    return 'Token{value: $value, type: $type}';
-  }
-}
+import 'package:rudi/frontend/token.dart';
 
 List<Token> tokenize(String sourceCode) {
   List<Token> tokens = [];
@@ -105,7 +90,14 @@ List<Token> tokenize(String sourceCode) {
           type: TokenType.comma,
         ),
       );
-    } else {
+    } else if (src[0] == ".") {
+      tokens.add(
+        Token(
+          value: src.removeAt(0),
+          type: TokenType.dot,
+        ),
+      );
+    }else {
       // Handle multicharacter tokens
 
       if (isInt(src[0])) {

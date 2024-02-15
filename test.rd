@@ -1,12 +1,7 @@
-let x = 45;
-let y = 5;
+const x = 45;
+const y = 60;
 
-const z = x + y;
-
-const map = {
-    x,
-    y: 2,
-    complex: {
-        value: 32,
-    },
-};
+print(x, y);
+45.0 60.0
+debugPrint(x, y);
+[NumberValue{value: 45.0, type: ValueType.number}, NumberValue{value: 60.0, type: ValueType.number}]

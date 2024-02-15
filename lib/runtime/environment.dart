@@ -71,4 +71,52 @@ void setuptScope(Environment environment) {
   environment.declareVariable("false", BooleanValue(value: false), true);
   environment.declareVariable("null", NullValue(), true);
   environment.declareVariable("pi", NumberValue(value: pi), true);
+
+  // Define a native function
+  environment.declareVariable(
+    "print",
+    NativeFunctionValue(
+      call: (arguments, environment) {
+        List<String> argumentsToPrint = [];
+
+        for (final arg in arguments) {
+          switch (arg.type) {
+            case ValueType.number:
+              argumentsToPrint.add((arg as NumberValue).value.toString());
+              break;
+            case ValueType.boolean:
+              argumentsToPrint.add((arg as BooleanValue).value.toString());
+              break;
+            case ValueType.map:
+              argumentsToPrint.add((arg as MapValue).toString());
+              break;
+            case ValueType.nativeFunction:
+              argumentsToPrint.add(
+                (arg as NativeFunctionValue).type.toString(),
+              );
+              break;
+            default:
+              argumentsToPrint.add(arg.toString());
+          }
+        }
+
+        print(argumentsToPrint.join(" "));
+
+        return NullValue();
+      },
+    ),
+    true,
+  );
+
+  environment.declareVariable(
+    "debugPrint",
+    NativeFunctionValue(
+      call: (arguments, environment) {
+        print(arguments);
+
+        return NullValue();
+      },
+    ),
+    true,
+  );
 }

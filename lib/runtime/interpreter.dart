@@ -17,8 +17,13 @@ RuntimeValue evaluate(Statement astNode, Environment environment) {
         environment,
       );
     case NodeType.mapLiteral:
-      return evaluateMapLiteral(
+      return evaluateMapExpression(
         astNode as MapLiteral,
+        environment,
+      );
+    case NodeType.callExpression:
+      return evalCallExpression(
+        astNode as CallExpression,
         environment,
       );
     case NodeType.assignmentExpression:

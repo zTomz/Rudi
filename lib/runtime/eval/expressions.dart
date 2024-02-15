@@ -84,7 +84,7 @@ RuntimeValue evaluateAssignmentExpression(
   );
 }
 
-RuntimeValue evaluateMapLiteral(
+RuntimeValue evaluateMapExpression(
   MapLiteral mapLiteral,
   Environment environment,
 ) {
@@ -99,4 +99,31 @@ RuntimeValue evaluateMapLiteral(
   }
 
   return map;
+}
+
+RuntimeValue evalCallExpression(
+  CallExpression callExpression,
+  Environment environment,
+) {
+  final function = evaluate(
+    callExpression.caller,
+    environment,
+  );
+
+  if (function.type != ValueType.nativeFunction) {
+    throw "Cannot call value, that is not a function. [$function].";
+  }
+
+  final args = callExpression.arguments
+      .map(
+        (e) => evaluate(e, environment),
+      )
+      .toList();
+
+  final result = (function as NativeFunctionValue).call(
+    args,
+    environment,
+  );
+
+  return result;
 }

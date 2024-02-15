@@ -1,4 +1,4 @@
-import 'package:rudi/frontend/token_type.dart';
+import 'package:rudi/frontend/token.dart';
 
 const Map<String, TokenType> keywords = {
   "let": TokenType.let,

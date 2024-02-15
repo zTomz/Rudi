@@ -96,28 +96,28 @@ class BinaryExpression extends Expression {
 
 class CallExpression extends Expression {
   final List<Expression> arguments;
-  final Expression calle;
+  final Expression caller;
 
   CallExpression({
     required this.arguments,
-    required this.calle,
+    required this.caller,
   }) : super(
           kind: NodeType.callExpression,
         );
 
   @override
   String toString() {
-    return 'CallExpression{arguments: $arguments, calle: $calle, kind: $kind}';
+    return 'CallExpression{arguments: $arguments, caller: $caller, kind: $kind}';
   }
 }
 
 class MemberExpression extends Expression {
-  final Expression object;
+  final Expression map;
   final Expression property;
   final bool computed;
 
   MemberExpression({
-    required this.object,
+    required this.map,
     required this.property,
     required this.computed,
   }) : super(
@@ -126,7 +126,7 @@ class MemberExpression extends Expression {
 
   @override
   String toString() {
-    return 'MemberExpression{object: $object, property: $property, computed: $computed, kind: $kind}';
+    return 'MemberExpression{map: $map, property: $property, computed: $computed, kind: $kind}';
   }
 }
 

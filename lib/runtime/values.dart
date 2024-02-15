@@ -1,8 +1,11 @@
+import 'package:rudi/runtime/environment.dart';
+
 enum ValueType {
   nullType,
   number,
   boolean,
   map,
+  nativeFunction,
 }
 
 class RuntimeValue {
@@ -71,5 +74,25 @@ class MapValue extends RuntimeValue {
   @override
   String toString() {
     return 'MapValue{properties: $properties, type: $type}';
+  }
+}
+
+typedef FunctionCall = RuntimeValue Function(
+  List<RuntimeValue> arguments,
+  Environment environment,
+);
+
+class NativeFunctionValue extends RuntimeValue {
+  final FunctionCall call;
+
+  NativeFunctionValue({
+    required this.call,
+  }) : super(
+          type: ValueType.nativeFunction,
+        );
+
+  @override
+  String toString() {
+    return 'NativeFunctionValue{call: $call, type: $type}';
   }
 }

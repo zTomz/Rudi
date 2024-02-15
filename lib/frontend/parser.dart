@@ -1,7 +1,7 @@
 import 'package:rudi/exeptions.dart';
 import 'package:rudi/frontend/ast.dart';
 import 'package:rudi/frontend/lexer.dart';
-import 'package:rudi/frontend/token_type.dart';
+import 'package:rudi/frontend/token.dart';
 
 class Parser {
   List<Token> tokens = [];
@@ -210,7 +210,7 @@ class Parser {
   }
 
   Expression _parseMultiplicativeExpression() {
-    Expression left = _parsePrimaryExpression();
+    Expression left = _parseCallMemberExpression();
 
     while (tokens[0].value == "*" ||
         tokens[0].value == "/" ||
@@ -222,7 +222,7 @@ class Parser {
               ? BinaryOperator.divide
               : BinaryOperator.modulo;
 
-      final right = _parsePrimaryExpression();
+      final right = _parseCallMemberExpression();
 
       left = BinaryExpression(
         left: left,
@@ -232,5 +232,107 @@ class Parser {
     }
 
     return left;
+  }
+
+  Expression _parseCallMemberExpression() {
+    final member = _parseMemberExpression();
+
+    if (tokens[0].type == TokenType.openParen) {
+      return _parseCallExpression(member);
+    }
+
+    return member;
+  }
+
+  CallExpression _parseCallExpression(Expression caller) {
+    CallExpression callExprssion = CallExpression(
+      caller: caller,
+      arguments: _parseArgs(),
+    );
+
+    if (tokens[0].type == TokenType.openParen) {
+      callExprssion = _parseCallExpression(callExprssion);
+    }
+
+    _expect(
+      TokenType.semiColon,
+      "Expected semi colon after call.",
+    );
+
+    return callExprssion;
+  }
+
+  Expression _parseMemberExpression() {
+    Expression map = _parsePrimaryExpression();
+
+    while (tokens[0].type == TokenType.dot ||
+        tokens[0].type == TokenType.identifier) {
+      final operator = tokens.removeAt(0);
+
+      Expression property;
+      bool computed;
+
+      // Non computed values aka map.expr
+      if (operator.type == TokenType.dot) {
+        computed = false;
+        // Get identifier
+        property = _parsePrimaryExpression();
+
+        if (property is! Identifier) {
+          throw "Cannot use dot operator on non-identifier.";
+        }
+      } else {
+        // This allows map[key]
+        computed = true;
+        property = _parseExpression();
+
+        _expect(
+          TokenType.closeBracket,
+          "Missing closing bracket in computed value.",
+        );
+      }
+
+      map = MemberExpression(
+        map: map,
+        property: property,
+        computed: computed,
+      );
+    }
+
+    return map;
+  }
+
+  List<Expression> _parseArgs() {
+    _expect(
+      TokenType.openParen,
+      "Expected open parenthesis.",
+    );
+
+    final args = tokens[0].type == TokenType.closeParen
+        ? <Expression>[]
+        : _parseArgumentsList();
+
+    _expect(
+      TokenType.closeParen,
+      "Missing closing parenthesis.",
+    );
+
+    return args;
+  }
+
+  List<Expression> _parseArgumentsList() {
+    List<Expression> args = [
+      _parseExpression(),
+    ];
+
+    while (tokens[0].type == TokenType.comma) {
+      tokens.removeAt(0);
+
+      args.add(
+        _parseExpression(),
+      );
+    }
+
+    return args;
   }
 }
