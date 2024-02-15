@@ -94,6 +94,42 @@ class BinaryExpression extends Expression {
   }
 }
 
+class CallExpression extends Expression {
+  final List<Expression> arguments;
+  final Expression calle;
+
+  CallExpression({
+    required this.arguments,
+    required this.calle,
+  }) : super(
+          kind: NodeType.callExpression,
+        );
+
+  @override
+  String toString() {
+    return 'CallExpression{arguments: $arguments, calle: $calle, kind: $kind}';
+  }
+}
+
+class MemberExpression extends Expression {
+  final Expression object;
+  final Expression property;
+  final bool computed;
+
+  MemberExpression({
+    required this.object,
+    required this.property,
+    required this.computed,
+  }) : super(
+          kind: NodeType.memberExpression,
+        );
+
+  @override
+  String toString() {
+    return 'MemberExpression{object: $object, property: $property, computed: $computed, kind: $kind}';
+  }
+}
+
 class Identifier extends Expression {
   final String symbol;
 

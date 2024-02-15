@@ -5,6 +5,8 @@ enum NodeType {
   // Expressions
   assignmentExpression,
   binaryExpression,
+  memberExpression,
+  callExpression,
   // Literal
   property,
   mapLiteral,
