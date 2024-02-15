@@ -47,6 +47,25 @@ class VariableDecleration extends Statement {
   }
 }
 
+class FunctionDecleration extends Statement {
+  final List<String> parameters;
+  final String name;
+  final List<Statement> body;
+
+  FunctionDecleration({
+    required this.parameters,
+    required this.name,
+    required this.body,
+  }) : super(
+          kind: NodeType.functionDeclaration,
+        );
+
+  @override
+  String toString() {
+    return 'FunctionDecleration{parameters: $parameters, name: $name, body: $body, kind: $kind}';
+  }
+}
+
 class Expression extends Statement {
   Expression({
     required super.kind,

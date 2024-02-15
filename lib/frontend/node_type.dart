@@ -2,6 +2,7 @@ enum NodeType {
   // Statements
   program,
   variableDeclaration,
+  functionDeclaration,
   // Expressions
   assignmentExpression,
   binaryExpression,

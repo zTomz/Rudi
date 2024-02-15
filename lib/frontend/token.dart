@@ -21,6 +21,7 @@ enum TokenType {
   // Keywords
   let,
   constType,
+  fn,
   // Grouping * Operators
   binaryOperator,
   equals,

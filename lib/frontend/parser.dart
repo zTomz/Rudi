@@ -41,9 +41,77 @@ class Parser {
         return _parseVariableDeclaration();
       case TokenType.constType:
         return _parseVariableDeclaration();
+      case TokenType.fn:
+        return _parseFunctionDeclaration();
       default:
         return _parseExpression();
     }
+  }
+
+  Statement _parseFunctionDeclaration() {
+    tokens.removeAt(0); // Remove 'fn' keyword
+
+    final name = _expect(
+      TokenType.identifier,
+      "Expected function name.",
+    ).value;
+
+    _expect(
+      TokenType.openParen,
+      "Expected '(' after function name.",
+    );
+
+    List<String> parameters =
+        tokens[0].type == TokenType.closeParen ? [] : _parseParameters();
+
+    _expect(
+      TokenType.openBrace,
+      "Expected '{' before function body.",
+    );
+
+    List<Statement> body = [];
+
+    while (_notEof() && tokens[0].type != TokenType.closeBrace) {
+      body.add(_parseStatement());
+    }
+
+    _expect(
+      TokenType.closeBrace,
+      "Expected '}' after function body.",
+    );
+
+    return FunctionDecleration(
+      name: name,
+      parameters: parameters,
+      body: body,
+    );
+  }
+
+  List<String> _parseParameters() {
+    List<String> parameters = [
+      _expect(
+        TokenType.identifier,
+        "Expected parameter name.",
+      ).value,
+    ];
+
+    while (tokens[0].type == TokenType.comma) {
+      tokens.removeAt(0);
+
+      final parameter = _expect(
+        TokenType.identifier,
+        "Expected parameter name.",
+      );
+
+      parameters.add(parameter.value);
+    }
+
+    _expect(
+      TokenType.closeParen,
+      "Expected ')' after parameters.",
+    );
+
+    return parameters;
   }
 
   Statement _parseVariableDeclaration() {

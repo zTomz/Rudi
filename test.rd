@@ -1,6 +1,6 @@
-let map = {
-    "a": 1,
-    "b": 2,
-};
+fn add(x, y) {
+    let result = x + y;
+    println(result);
 
-println(map);
+    result
+}
