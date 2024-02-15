@@ -11,5 +11,6 @@ enum NodeType {
   property,
   mapLiteral,
   numericLitaral,
+  stringLiteral,
   identifier,
 }

@@ -3,6 +3,7 @@ import 'package:rudi/runtime/environment.dart';
 enum ValueType {
   nullType,
   number,
+  string,
   boolean,
   map,
   nativeFunction,
@@ -59,6 +60,21 @@ class NumberValue extends RuntimeValue {
   @override
   String toString() {
     return 'NumberValue{value: $value, type: $type}';
+  }
+}
+
+class StringValue extends RuntimeValue {
+  final String value;
+
+  StringValue({
+    required this.value,
+  }) : super(
+          type: ValueType.string,
+        );
+
+  @override
+  String toString() {
+    return 'StringValue{value: $value, type: $type}';
   }
 }
 

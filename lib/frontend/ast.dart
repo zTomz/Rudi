@@ -160,6 +160,21 @@ class NumericLiteral extends Expression {
   }
 }
 
+class StringLiteral extends Expression {
+  final String value;
+
+  StringLiteral({
+    required this.value,
+  }) : super(
+          kind: NodeType.stringLiteral,
+        );
+
+  @override
+  String toString() {
+    return 'StringLiteral{value: $value}';
+  }
+}
+
 class AssignmentExpression extends Expression {
   final Expression assigne;
   final Expression value;

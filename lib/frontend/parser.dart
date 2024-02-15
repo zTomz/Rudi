@@ -87,7 +87,7 @@ class Parser {
   }
 
   Expression _parseAssignmentExpression() {
-    final left = _parsemapExpression();
+    final left = _parseMapExpression();
 
     if (tokens[0].type == TokenType.equals) {
       tokens.removeAt(0); // advance past the equal
@@ -107,7 +107,7 @@ class Parser {
     return left;
   }
 
-  Expression _parsemapExpression() {
+  Expression _parseMapExpression() {
     if (tokens[0].type != TokenType.openBrace) {
       return _parseAdditiveExpression();
     }
@@ -117,8 +117,8 @@ class Parser {
 
     while (_notEof() && tokens[0].type != TokenType.closeBrace) {
       final key = _expect(
-        TokenType.identifier,
-        "map literal key expected.",
+        TokenType.string,
+        "Map literal key expected.",
       ).value;
 
       // Allows shorthand key: pair -> { key, }
@@ -176,6 +176,10 @@ class Parser {
       case TokenType.number:
         return NumericLiteral(
           number: double.parse(tokens.removeAt(0).value),
+        );
+      case TokenType.string:
+        return StringLiteral(
+          value: tokens.removeAt(0).value,
         );
       case TokenType.openParen:
         tokens.removeAt(0); // Remove opening paren

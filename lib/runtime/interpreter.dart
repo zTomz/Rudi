@@ -11,6 +11,10 @@ RuntimeValue evaluate(Statement astNode, Environment environment) {
       return NumberValue(
         value: (astNode as NumericLiteral).number,
       );
+    case NodeType.stringLiteral:
+      return StringValue(
+        value: (astNode as StringLiteral).value,
+      );
     case NodeType.identifier:
       return evaluateIdentifier(
         astNode as Identifier,

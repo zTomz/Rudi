@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:rudi/exeptions.dart';
@@ -73,6 +74,8 @@ void setuptScope(Environment environment) {
   environment.declareVariable("pi", NumberValue(value: pi), true);
 
   // Define a native function
+
+  // Print functions: [ print, println, debugPrint ]
   environment.declareVariable(
     "print",
     NativeFunctionValue(
@@ -84,11 +87,14 @@ void setuptScope(Environment environment) {
             case ValueType.number:
               argumentsToPrint.add((arg as NumberValue).value.toString());
               break;
+            case ValueType.string:
+              argumentsToPrint.add((arg as StringValue).value);
+              break;
             case ValueType.boolean:
               argumentsToPrint.add((arg as BooleanValue).value.toString());
               break;
             case ValueType.map:
-              argumentsToPrint.add((arg as MapValue).toString());
+              argumentsToPrint.add((arg as MapValue).properties.toString());
               break;
             case ValueType.nativeFunction:
               argumentsToPrint.add(
@@ -100,19 +106,55 @@ void setuptScope(Environment environment) {
           }
         }
 
-        print(argumentsToPrint.join(" "));
+        stdout.write(argumentsToPrint.join(" "));
 
         return NullValue();
       },
     ),
     true,
   );
+  environment.declareVariable(
+    "println",
+    NativeFunctionValue(
+      call: (arguments, environment) {
+        List<String> argumentsToPrint = [];
 
+        for (final arg in arguments) {
+          switch (arg.type) {
+            case ValueType.number:
+              argumentsToPrint.add((arg as NumberValue).value.toString());
+              break;
+            case ValueType.string:
+              argumentsToPrint.add((arg as StringValue).value);
+              break;
+            case ValueType.boolean:
+              argumentsToPrint.add((arg as BooleanValue).value.toString());
+              break;
+            case ValueType.map:
+              argumentsToPrint.add((arg as MapValue).properties.toString());
+              break;
+            case ValueType.nativeFunction:
+              argumentsToPrint.add(
+                (arg as NativeFunctionValue).type.toString(),
+              );
+              break;
+            default:
+              argumentsToPrint.add(arg.toString());
+          }
+        }
+
+        stdout.writeln(argumentsToPrint.join(" "));
+
+        return NullValue();
+      },
+    ),
+    true,
+  );
   environment.declareVariable(
     "debugPrint",
     NativeFunctionValue(
       call: (arguments, environment) {
-        print(arguments);
+        stdout.writeln(arguments);
 
         return NullValue();
       },

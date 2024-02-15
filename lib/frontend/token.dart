@@ -16,6 +16,7 @@ class Token {
 enum TokenType {
   // Literal Types
   number,
+  string,
   identifier,
   // Keywords
   let,

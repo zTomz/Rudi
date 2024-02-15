@@ -97,7 +97,24 @@ List<Token> tokenize(String sourceCode) {
           type: TokenType.dot,
         ),
       );
-    }else {
+    } else if (src[0] == '"') {
+      String string = '';
+
+      src.removeAt(0);
+
+      while (src.isNotEmpty && src[0] != '"') {
+        string += src.removeAt(0);
+      }
+
+      src.removeAt(0);
+
+      tokens.add(
+        Token(
+          value: string,
+          type: TokenType.string,
+        ),
+      );
+    } else {
       // Handle multicharacter tokens
 
       if (isInt(src[0])) {
