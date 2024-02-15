@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:rudi/rudi.dart';
-import 'package:rudi/src/runtime/environment.dart';
+import 'package:rudi/frontend/parser.dart';
+import 'package:rudi/runtime/environment.dart';
+import 'package:rudi/runtime/interpreter.dart';
 
 void main(List<String> args) async {
   final Parser parser = Parser();

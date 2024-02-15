@@ -1,6 +1,6 @@
-import 'package:rudi/src/exeptions.dart';
-import 'package:rudi/src/frontend/keywords.dart';
-import 'package:rudi/src/frontend/token_type.dart';
+import 'package:rudi/exeptions.dart';
+import 'package:rudi/frontend/keywords.dart';
+import 'package:rudi/frontend/token_type.dart';
 
 class Token {
   final String value;

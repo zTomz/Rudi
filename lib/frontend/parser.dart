@@ -1,7 +1,7 @@
-import 'package:rudi/rudi.dart';
-import 'package:rudi/src/exeptions.dart';
-import 'package:rudi/src/frontend/ast.dart';
-import 'package:rudi/src/frontend/token_type.dart';
+import 'package:rudi/exeptions.dart';
+import 'package:rudi/frontend/ast.dart';
+import 'package:rudi/frontend/lexer.dart';
+import 'package:rudi/frontend/token_type.dart';
 
 class Parser {
   List<Token> tokens = [];

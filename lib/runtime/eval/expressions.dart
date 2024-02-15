@@ -1,9 +1,9 @@
-import 'package:rudi/src/exeptions.dart';
-import 'package:rudi/src/frontend/ast.dart';
-import 'package:rudi/src/frontend/node_type.dart';
-import 'package:rudi/src/runtime/environment.dart';
-import 'package:rudi/src/runtime/interpreter.dart';
-import 'package:rudi/src/runtime/values.dart';
+import 'package:rudi/exeptions.dart';
+import 'package:rudi/frontend/ast.dart';
+import 'package:rudi/frontend/node_type.dart';
+import 'package:rudi/runtime/environment.dart';
+import 'package:rudi/runtime/interpreter.dart';
+import 'package:rudi/runtime/values.dart';
 
 RuntimeValue evaluateBinaryExpression(
   BinaryExpression binaryExpression,

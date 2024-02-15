@@ -1,7 +1,7 @@
-import 'package:rudi/src/frontend/ast.dart';
-import 'package:rudi/src/runtime/environment.dart';
-import 'package:rudi/src/runtime/interpreter.dart';
-import 'package:rudi/src/runtime/values.dart';
+import 'package:rudi/frontend/ast.dart';
+import 'package:rudi/runtime/environment.dart';
+import 'package:rudi/runtime/interpreter.dart';
+import 'package:rudi/runtime/values.dart';
 
 RuntimeValue evaluateProgram(Program program, Environment environment) {
   RuntimeValue lastEvaluated = NullValue();

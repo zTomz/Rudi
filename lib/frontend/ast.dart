@@ -1,4 +1,4 @@
-import 'package:rudi/src/frontend/node_type.dart';
+import 'package:rudi/frontend/node_type.dart';
 
 class Statement {
   final NodeType kind;

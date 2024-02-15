@@ -1,9 +1,9 @@
-import 'package:rudi/src/frontend/ast.dart';
-import 'package:rudi/src/frontend/node_type.dart';
-import 'package:rudi/src/runtime/environment.dart';
-import 'package:rudi/src/runtime/eval/expressions.dart';
-import 'package:rudi/src/runtime/eval/statements.dart';
-import 'package:rudi/src/runtime/values.dart';
+import 'package:rudi/frontend/ast.dart';
+import 'package:rudi/frontend/node_type.dart';
+import 'package:rudi/runtime/environment.dart';
+import 'package:rudi/runtime/eval/expressions.dart';
+import 'package:rudi/runtime/eval/statements.dart';
+import 'package:rudi/runtime/values.dart';
 
 RuntimeValue evaluate(Statement astNode, Environment environment) {
   switch (astNode.kind) {

@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:rudi/src/exeptions.dart';
-import 'package:rudi/src/runtime/values.dart';
+import 'package:rudi/exeptions.dart';
+import 'package:rudi/runtime/values.dart';
 
 class Environment {
   Environment? parent;
