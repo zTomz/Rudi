@@ -52,6 +52,20 @@ List<Token> tokenize(String sourceCode) {
           type: TokenType.closeBrace,
         ),
       );
+    } else if (src[0] == '[') {
+      tokens.add(
+        Token(
+          value: src.removeAt(0),
+          type: TokenType.openBracket,
+        ),
+      );
+    } else if (src[0] == ']') {
+      tokens.add(
+        Token(
+          value: src.removeAt(0),
+          type: TokenType.closeBracket,
+        ),
+      );
     } else if (src[0] == '+' ||
         src[0] == '-' ||
         src[0] == '*' ||

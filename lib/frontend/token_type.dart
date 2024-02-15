@@ -13,6 +13,8 @@ enum TokenType {
   closeBrace, // }
   openParen, // (
   closeParen, // )
+  openBracket, // [
+  closeBracket, // ]
   semiColon, // ;
   colon, // :
   // Signified the end of a file
