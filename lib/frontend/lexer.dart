@@ -9,6 +9,19 @@ List<Token> tokenize(String sourceCode) {
 
   // Build each token until end of the file
   while (src.isNotEmpty) {
+    if (src[0] == "/" && src[1] == "/") {
+      while (src[0] != "\n") {
+        src.removeAt(0);
+      }
+    }
+    if (src[0] == "/" && src[1] == "*") {
+      while (src[0] != "*" || src[1] != "/") {
+        src.removeAt(0);
+      }
+      src.removeAt(0);
+      src.removeAt(0);
+    }
+
     if (src[0] == '(') {
       tokens.add(
         Token(
